@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Parking</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module" src="script.js" defer></script>
+</head>
+<body>
+    <h1>Welcome to Smart Parking</h1>
+    <div id="parking-info"></div>
+    
+    <div class="button-container">
+        <button class="button" onclick="openGate()">เปิดไม้กั้น</button>
+        <button class="button" onclick="closeGate()">ปิดไม้กั้น</button>
+    </div>
+
+    <div class="mode-container">
+        <span class="mode-status" id="mode-status">Current Mode: Auto</span>
+        <label class="switch">
+            <input type="checkbox" id="mode-switch" onchange="switchMode(this.checked)">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div id="notification" class="notification"></div>
+    <div id="history-info" style="margin-top: 20px;"></div>
+</body>
+</html>
