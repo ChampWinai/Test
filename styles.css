@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
+    margin: 0; /* เพิ่มให้ไม่มีระยะขอบ */
+    padding: 0; /* เพิ่มให้ไม่มีระยะขอบ */
 }
 
 h1 {
@@ -12,12 +14,13 @@ h1 {
 
 #parking-info {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* กำหนดให้มี 5 คอลัมน์ */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* ปรับขนาดตามพื้นที่ */
     gap: 10px;
     justify-content: center;
     margin: 20px auto;
     padding: 10px;
-    width: 80%;
+    width: 90%; /* ปรับให้ครอบคลุมหน้าจอ */
+    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -133,4 +136,59 @@ input:checked + .slider:before {
 .history-table th {
     background-color: #007bff;
     color: white;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .button {
+        padding: 8px 16px;
+    }
+
+    #parking-info {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    }
+
+    .parking-slot {
+        padding: 15px;
+    }
+
+    .history-table th, .history-table td {
+        font-size: 14px;
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.2em;
+    }
+
+    .button {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .mode-container {
+        margin: 10px;
+    }
+
+    .parking-slot {
+        padding: 10px;
+    }
+
+    .button-container {
+        margin: 10px;
+    }
+
+    .history-table {
+        font-size: 12px;
+    }
+
+    .history-table th, .history-table td {
+        padding: 4px;
+    }
 }
