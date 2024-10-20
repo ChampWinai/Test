@@ -2,8 +2,8 @@ body {
     font-family: Arial, sans-serif;
     text-align: center;
     background-color: #f4f4f4;
-    margin: 0; /* เพิ่มให้ไม่มีระยะขอบ */
-    padding: 0; /* เพิ่มให้ไม่มีระยะขอบ */
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
@@ -14,13 +14,14 @@ h1 {
 
 #parking-info {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* ปรับขนาดตามพื้นที่ */
+    grid-template-columns: repeat(5, 1fr); /* 5 ช่องต่อแถว */
+    grid-template-rows: repeat(2, auto); /* 2 แถว */
     gap: 10px;
     justify-content: center;
     margin: 20px auto;
     padding: 10px;
-    width: 90%; /* ปรับให้ครอบคลุมหน้าจอ */
-    max-width: 1200px; /* กำหนดความกว้างสูงสุด */
+    width: 90%;
+    max-width: 1200px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -36,13 +37,13 @@ h1 {
 }
 
 .parking-slot.available {
-    background-color: #28a745; /* สีเขียว */
+    background-color: #28a745;
     color: #fff;
     border-color: #28a745;
 }
 
 .parking-slot.occupied {
-    background-color: #dc3545; /* สีแดง */
+    background-color: #dc3545;
     color: #fff;
     border-color: #dc3545;
 }
@@ -118,7 +119,7 @@ input:checked + .slider:before {
     padding: 10px;
     margin: 10px;
     border-radius: 5px;
-    display: none; /* ซ่อนแจ้งเตือนในตอนเริ่มต้น */
+    display: none;
 }
 
 .history-table {
@@ -149,7 +150,8 @@ input:checked + .slider:before {
     }
 
     #parking-info {
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        grid-template-columns: repeat(2, 1fr); /* แสดง 2 คอลัมน์ */
+        grid-template-rows: repeat(5, auto); /* แสดง 5 แถว */
     }
 
     .parking-slot {
@@ -190,5 +192,11 @@ input:checked + .slider:before {
 
     .history-table th, .history-table td {
         padding: 4px;
+    }
+
+    /* แสดงเป็น 2 แถว แถวละ 5 ช่องในหน้าจอโทรศัพท์ */
+    #parking-info {
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: repeat(2, auto);
     }
 }

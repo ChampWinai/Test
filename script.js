@@ -37,7 +37,6 @@ function fetchParkingInfo() {
                 // Populate the slot information
                 slotElement.innerHTML = `
                     <h3>${slot}</h3>
-                    <p>Count: ${slotData.count}</p>
                 `;
                 parkingInfoDiv.appendChild(slotElement);
             });
