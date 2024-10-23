@@ -1,221 +1,120 @@
+/* General Body Styles */
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #f4f4f4;
+    background-color: #f0f2f5; /* เปลี่ยนสีพื้นหลังเป็นสีอ่อน */
     margin: 0;
     padding: 0;
-}
-
-h1 {
-    font-size: 2em;
-    margin-top: 20px;
-    color: #333;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
-}
-
-#parking-info {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 ช่องต่อแถว */
-    gap: 15px; /* เพิ่มช่องว่างระหว่างแต่ละช่อง */
-    justify-content: center;
+  }
+  
+  h1 {
+    font-size: 2.5em;
     margin: 20px auto;
-    padding: 20px; /* เพิ่ม padding เพื่อให้มีระยะห่างจากขอบ */
-    width: 90%;
-    max-width: 1200px;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กล่อง */
-    border-radius: 10px; /* เพิ่มความโค้งมน */
-}
-
-.parking-slot {
+    color: #333;
+    font-weight: bold;
+    letter-spacing: 1px; /* เพิ่มช่องว่างระหว่างตัวอักษร */
+  }
+  
+  /* Grid Layout for Parking Slots */
+  #parking-info {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 คอลัมน์ */
+    grid-template-rows: repeat(2, auto); /* 2 แถว */
+    gap: 10px;
+    justify-content: center;
     padding: 20px;
-    background-color: #eee;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 70%;
+    margin: 20px auto;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 600px) {
+    #parking-info {
+      grid-template-columns: repeat(5, 1fr); /* แสดง 5 คอลัมน์ */
+      grid-template-rows: repeat(2, auto); /* 2 แถว */
+      width: 100%; /* ขยายเต็มจอ */
+    }
+  }
+  
+  @media (min-width: 601px) and (max-width: 1024px) {
+    #parking-info {
+      grid-template-columns: repeat(5, 1fr); /* แสดง 5 คอลัมน์ */
+      grid-template-rows: repeat(2, auto); /* 2 แถว */
+      width: 90%; /* ปรับขนาดตามหน้าจอขนาดกลาง */
+    }
+  }
+  
+  /* Parking Slot Styles */
+  .parking-slot {
+    padding: 30px;
+    border-radius: 10px;
     text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* เพิ่ม transition เพื่อความลื่นไหล */
-}
-
-.parking-slot:hover {
-    transform: translateY(-3px); /* เพิ่มเอฟเฟกต์ยกขึ้นเล็กน้อยเมื่อ hover */
-}
-
-.parking-slot.available {
+    font-size: 1.2em;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาของช่องจอด */
+    transition: transform 0.2s ease; /* เพิ่มเอฟเฟกต์เวลาชี้เมาส์ */
+  }
+  
+  .parking-slot:hover {
+    transform: scale(1.05); /* ขยายขนาดเล็กน้อยเมื่อชี้เมาส์ */
+  }
+  
+  .parking-slot.available {
     background-color: #28a745; /* สีเขียว */
     color: #fff;
-    border-color: #28a745;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
-}
-
-.parking-slot.occupied {
+  }
+  
+  .parking-slot.occupied {
     background-color: #dc3545; /* สีแดง */
     color: #fff;
-    border-color: #dc3545;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
-}
-
-.button-container {
+  }
+  
+  /* Button Container */
+  .button-container {
     margin: 20px;
-}
-
-.button {
+  }
+  
+  .button {
     background-color: #007bff;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    margin: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s; /* เพิ่ม transition */
-}
-
-.button:hover {
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
     background-color: #0056b3;
-    transform: translateY(-2px); /* ยกขึ้นเล็กน้อยเมื่อ hover */
-}
-
-.mode-container {
-    margin: 20px;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    border-radius: 34px;
-    transition: 0.4s; /* เพิ่ม transition */
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.4s;
-}
-
-input:checked + .slider {
-    background-color: #2196F3;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-.notification {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    display: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาเล็กน้อย */
-}
-
-.history-table {
+  }
+  
+  /* History Table */
+  .history-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.history-table th, .history-table td {
+  }
+  
+  .history-table th,
+  .history-table td {
+    padding: 12px;
+    text-align: left;
     border: 1px solid #ddd;
-    padding: 10px; /* เพิ่มระยะห่างในตาราง */
-    text-align: center;
-}
-
-.history-table th {
+  }
+  
+  .history-table th {
     background-color: #007bff;
     color: white;
-}
-
-/* Media Queries */
-@media (max-width: 1024px) {
-    #parking-info {
-        grid-template-columns: repeat(3, 1fr); /* 3 คอลัมน์สำหรับหน้าจอกลาง */
-    }
-}
-
-@media (max-width: 768px) {
-    h1 {
-        font-size: 1.5em;
-    }
-
-    .button {
-        padding: 8px 16px;
-    }
-
-    #parking-info {
-        grid-template-columns: repeat(2, 1fr); /* 2 คอลัมน์สำหรับหน้าจอเล็ก */
-        grid-template-rows: repeat(5, auto); /* แสดง 5 แถว */
-    }
-
-    .parking-slot {
-        padding: 15px;
-    }
-
-    .history-table th, .history-table td {
-        font-size: 14px;
-        padding: 8px;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.2em;
-    }
-
-    .button {
-        padding: 6px 12px;
-        font-size: 14px;
-    }
-
-    .mode-container {
-        margin: 10px;
-    }
-
-    .parking-slot {
-        padding: 10px;
-    }
-
-    .button-container {
-        margin: 10px;
-    }
-
-    .history-table {
-        font-size: 12px;
-    }
-
-    .history-table th, .history-table td {
-        padding: 6px;
-    }
-
-    #parking-info {
-        grid-template-columns: repeat(5, 1fr); /* แสดง 5 คอลัมน์ */
-        grid-template-rows: repeat(2, auto); /* แสดง 2 แถว */
-    }
-}
+  }
+  
+  .history-row:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  .history-row:hover {
+    background-color: #e9ecef;
+  }
+  

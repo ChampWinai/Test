@@ -34,18 +34,18 @@ function fetchParkingInfo() {
                     displayStatusHistory(slot);
                 };
 
-                // Populate the slot information
+                // Populate the slot information with only the number
                 slotElement.innerHTML = `
-                    <h3>${slot}</h3>
-                    
+                    ${slot.replace(/\D/g, '')}  <!-- แสดงเฉพาะตัวเลขของ slot -->
                 `;
                 parkingInfoDiv.appendChild(slotElement);
             });
         } else {
-            parkingInfoDiv.innerHTML = '<p>No parking data available.</p>';
+            parkingInfoDiv.innerHTML = '<p>ไม่มีข้อมูลการใช้งานช่องจอด</p>';
         }
     });
 }
+
 
 function displayStatusHistory(slot) {
     const historyInfoDiv = document.getElementById('history-info');
@@ -72,6 +72,7 @@ function displayStatusHistory(slot) {
             // Populate the table with history data
             Object.keys(history).forEach(key => {
                 const row = document.createElement('tr');
+                row.classList.add('history-row'); // เพิ่มคลาสให้กับแถว
                 const timeCell = document.createElement('td');
                 const statusCell = document.createElement('td');
 
@@ -100,20 +101,6 @@ function closeGate() {
     logParkingAction('ออก'); // log exit
 }
 
-function logParkingAction(action) {
-    const timestamp = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-    const message = `${action}: ${timestamp}`;
-    
-    // Update the parking space history in Firebase
-    const parkingRef = ref(database, `parking_spaces/slot1/history`); // Change slot1 as needed
-    update(parkingRef, {
-        [timestamp]: { action: action, timestamp: timestamp } // Save both action and timestamp
-    }).then(() => {
-        displayNotification(message);
-    }).catch((error) => {
-        console.error("Error updating parking history: ", error);
-    });
-}
 
 function switchMode(isAuto) {
     const modeStatus = document.getElementById('mode-status');
