@@ -1,30 +1,72 @@
 <!DOCTYPE html>
 <html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Smart Parking</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script type="module" src="script.js" defer></script>
-</head>
-<body>
-    <h1>Welcome to Smart Parking</h1>
-    <div id="parking-info"></div>
-    
-    <div class="button-container">
-        <button class="button" onclick="openGate()">เปิดไม้กั้น</button>
-        <button class="button" onclick="closeGate()">ปิดไม้กั้น</button>
-    </div>
+  </head>
+  <body>
+    <header>
+      <h1>Welcome to Smart Parking</h1>
+    </header>
+    <main>
+      <section id="parking-info"></section>
+      <div class="parking-status">
+            <div class="total-slots" id="total-slots">ช่องจอดทั้งหมด: 0</div>
+            <div class="available-slots" id="available-slots">ช่องจอดว่าง: 0</div>
+      </div>
 
-    <div class="mode-container">
-        <span class="mode-status" id="mode-status">Current Mode: Auto</span>
-        <label class="switch">
-            <input type="checkbox" id="mode-switch" onchange="switchMode(this.checked)">
-            <span class="slider"></span>
-        </label>
-    </div>
+      <div class="mode-container">
+            <span class="mode-status" id="mode-status">Current Mode: Auto</span>
+            <label class="switch">
+                <input
+                    type="checkbox"
+                    id="mode-switch"
+                    onchange="switchMode(this.checked)"
+                />
+                <span class="slider"></span>
+            </label>
+      </div>
 
-    
-    <div id="history-info" ></div>
-</body>
+      <div class="button-container">
+            <button class="button" id="open-gate-btn">เปิดไม้กั้น</button>
+            <button class="button" id="close-gate-btn">ปิดไม้กั้น</button>
+      </div>
+
+      <!-- JavaScript -->
+      <script>
+        // เริ่มต้นให้ปุ่มซ่อนเมื่อโหลดหน้า
+        document.addEventListener("DOMContentLoaded", () => {
+          document.getElementById("open-gate-btn").style.display = "none"; // ซ่อนปุ่มเปิด
+          document.getElementById("close-gate-btn").style.display = "none"; // ซ่อนปุ่มปิด
+        });
+        // ฟังก์ชันสำหรับเปลี่ยนโหมด
+        function switchMode(isChecked) {
+          const modeStatus = document.getElementById("mode-status");
+
+          if (isChecked) {
+            modeStatus.textContent = "Current Mode: Manual"; // เปลี่ยนข้อความเป็น Manual
+            document.getElementById("open-gate-btn").style.display = "block"; // แสดงปุ่มเปิด
+            document.getElementById("close-gate-btn").style.display = "block"; // แสดงปุ่มปิด
+          } else {
+            modeStatus.textContent = "Current Mode: Auto"; // เปลี่ยนข้อความเป็น Auto
+            document.getElementById("open-gate-btn").style.display = "none"; // ซ่อนปุ่มเปิด
+            document.getElementById("close-gate-btn").style.display = "none"; // ซ่อนปุ่มปิด
+          }
+        }
+
+        // เชื่อมต่อกับฟังก์ชัน JavaScript
+        document
+          .getElementById("open-gate-btn")
+          .addEventListener("click", openGate);
+        document
+          .getElementById("close-gate-btn")
+          .addEventListener("click", closeGate);
+      </script>
+
+      <section id="history-info"></section>
+    </main>
+  </body>
 </html>
