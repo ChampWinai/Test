@@ -64,9 +64,6 @@ function fetchParkingInfo() {
     });
 }
 
-
-
-
 // Display status history for a specific slot
 function displayStatusHistory(slot) {
     const historyInfoDiv = document.getElementById('history-info');
@@ -98,38 +95,42 @@ function displayStatusHistory(slot) {
     });
 }
 
-// Open gate and log entry
-function openGate() {
+// ฟังก์ชันเปิดไม้กั้น
+export function openGate() {
     update(ref(database, 'gate'), { status: 'open' })
         .then(() => logParkingAction('เข้า')) // Log entry on successful gate opening
         .catch(error => console.error("Error opening gate: ", error));
 }
 
-// Close gate and log exit
-function closeGate() {
+// ฟังก์ชันปิดไม้กั้น
+export function closeGate() {
     update(ref(database, 'gate'), { status: 'closed' })
         .then(() => logParkingAction('ออก')) // Log exit on successful gate closing
         .catch(error => console.error("Error closing gate: ", error));
 }
 
-// Log parking action
-function logParkingAction(action) {
-    const actionRef = ref(database, 'parking_actions');
-    update(actionRef, { last_action: action })
-        .catch(error => console.error("Error logging action: ", error));
+// Switch mode (Manual/Auto)
+export function switchMode(isChecked) {
+    const modeStatus = document.getElementById("mode-status");
+
+    // อัปเดตข้อความแสดงสถานะโหมดและปุ่มตามค่า isChecked
+    if (isChecked) {
+        modeStatus.textContent = "Current Mode: Manual"; // เปลี่ยนข้อความเป็น Manual
+        document.getElementById("open-gate-btn").style.display = "block"; // แสดงปุ่มเปิด
+        document.getElementById("close-gate-btn").style.display = "block"; // แสดงปุ่มปิด
+    } else {
+        modeStatus.textContent = "Current Mode: Auto"; // เปลี่ยนข้อความเป็น Auto
+        document.getElementById("open-gate-btn").style.display = "none"; // ซ่อนปุ่มเปิด
+        document.getElementById("close-gate-btn").style.display = "none"; // ซ่อนปุ่มปิด
+    }
+
+    // อัปเดตโหมดใน Firebase
+    update(ref(database, 'gate'), { mode: isChecked })
+        .then(() => console.log(`Gate mode set to ${isChecked ? 'Manual' : 'Auto'}`))
+        .catch(error => console.error("Error updating gate mode: ", error));
 }
 
-// Switch gate mode
-function switchGateMode(isChecked) {
-    const gateModeStatus = isChecked ? "true" : "false";
-    update(ref(database, '/gate/mode'), { mode: gateModeStatus })
-        .then(() => {
-            document.getElementById('mode-status').textContent = "Current Gate Mode: " + (isChecked ? "On" : "Off");
-        })
-        .catch((error) => {
-            console.error("Error updating Firebase: ", error);
-        });
-}
+
 
 // Initial call to fetch parking status
 fetchParkingInfo();

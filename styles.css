@@ -2,176 +2,166 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f2f5; /* เปลี่ยนสีพื้นหลังเป็นสีอ่อน */
+  background-color: #f0f2f5;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 h1 {
-  font-size: 2.5em;
+  font-size: clamp(1.5rem, 4vw, 2.5em);
   margin: 20px auto;
   color: #333;
   font-weight: bold;
-  letter-spacing: 1px; /* เพิ่มช่องว่างระหว่างตัวอักษร */
+  letter-spacing: 1px;
 }
 
 /* Grid Layout for Parking Slots */
 #parking-info {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* 5 คอลัมน์ */
-  grid-template-rows: repeat(2, auto); /* 2 แถว */
   gap: 10px;
   justify-content: center;
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  width: 70%;
+  width: 90%;
   margin: 20px auto;
 }
 
-/* Responsive Styles */
+/* Responsive Grid Adjustments */
 @media (max-width: 600px) {
   #parking-info {
-    grid-template-columns: repeat(5, 1fr); /* แสดง 5 คอลัมน์ */
-    grid-template-rows: repeat(2, auto); /* 2 แถว */
-    width: 100%; /* ขยายเต็มจอ */
+    grid-template-columns: repeat(2, 1fr);
+    width: 95%;
+    padding: 10px;
+  }
+  
+  .parking-slot {
+    padding: 15px;
+    font-size: 1rem;
   }
 }
 
 @media (min-width: 601px) and (max-width: 1024px) {
   #parking-info {
-    grid-template-columns: repeat(5, 1fr); /* แสดง 5 คอลัมน์ */
-    grid-template-rows: repeat(2, auto); /* 2 แถว */
-    width: 90%; /* ปรับขนาดตามหน้าจอขนาดกลาง */
+    grid-template-columns: repeat(3, 1fr);
+    width: 90%;
+  }
+}
+
+@media (min-width: 1025px) {
+  #parking-info {
+    grid-template-columns: repeat(5, 1fr);
+    width: 70%;
   }
 }
 
 /* Parking Slot Styles */
 .parking-slot {
-  padding: 30px;
+  padding: clamp(15px, 3vw, 30px);
   border-radius: 10px;
   text-align: center;
-  font-size: 1.2em;
+  font-size: clamp(1rem, 2vw, 1.2em);
   font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* เงาของช่องจอด */
-  transition: transform 0.2s ease; /* เพิ่มเอฟเฟกต์เวลาชี้เมาส์ */
-  border: 1px solid #b8b8b8; /* เส้นขอบที่เรียบง่าย */
-}
-
-.parking-slot:hover {
-  transform: scale(1.05); /* ขยายขนาดเล็กน้อยเมื่อชี้เมาส์ */
-  cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อวางเมาส์ */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  border: 1px solid #b8b8b8;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .parking-slot.available {
-  background-color: #28a745; /* สีเขียว */
+  background-color: #28a745;
   color: #fff;
 }
 
 .parking-slot.occupied {
-  background-color: #dc3545; /* สีแดง */
+  background-color: #dc3545;
   color: #fff;
 }
 
 /* Parking Status Container */
 .parking-status {
-  display: flex; /* ใช้ Flexbox */
-  justify-content: space-between; /* จัดให้ห่างกัน */
-  margin: 20px auto; /* ช่องว่างด้านบนและด้านล่าง */
-  color: #fff; /* สีตัวอักษร */
-  max-width: 600px; /* กำหนดความกว้างสูงสุด */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 600px;
+  padding: 0 15px;
 }
 
-/* Total Slots Styling */
-.total-slots {
-  padding: 20px; /* ขนาด padding */
-  border: 2px solid #28a745; /* ขอบสีเขียว */
-  border-radius: 10px; /* มุมโค้ง */
-  background-color: #28a745; /* สีพื้นหลัง */
-  font-size: 22px; /* ขนาดตัวอักษร */
-  flex: 1; /* ให้มีขนาดเท่ากัน */
-  text-align: center; /* จัดให้อยู่กลาง */
-  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5); /* เงา */
-  transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มการเปลี่ยนแปลง */
-  margin: 0 10px; /* ช่องว่างด้านซ้ายและขวา */
-}
-
-.total-slots:hover {
-  transform: translateY(-5px); /* เคลื่อนขึ้นเล็กน้อยเมื่อ hover */
-  box-shadow: 0 8px 25px rgba(40, 167, 69, 0.7); /* เพิ่มเงาเมื่อ hover */
-}
-
-/* Available Slots Styling */
+/* Status Boxes */
+.total-slots,
 .available-slots {
-  padding: 20px; /* ขนาด padding */
-  border: 2px solid #dc3545; /* ขอบสีแดง */
-  border-radius: 10px; /* มุมโค้ง */
-  background-color: #dc3545; /* สีพื้นหลัง */
-  font-size: 22px; /* ขนาดตัวอักษร */
-  flex: 1; /* ให้มีขนาดเท่ากัน */
-  text-align: center; /* จัดให้อยู่กลาง */
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.5); /* เงา */
-  transition: transform 0.2s, box-shadow 0.2s; /* เพิ่มการเปลี่ยนแปลง */
-  margin: 0 10px; /* ช่องว่างด้านซ้ายและขวา */
+  flex: 1 1 200px;
+  padding: clamp(15px, 3vw, 20px);
+  border-radius: 10px;
+  font-size: clamp(1rem, 3vw, 22px);
+  text-align: center;
+  color: #fff;
+  min-width: 140px;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.available-slots:hover {
-  transform: translateY(-5px); /* เคลื่อนขึ้นเล็กน้อยเมื่อ hover */
-  box-shadow: 0 8px 25px rgba(220, 53, 69, 0.7); /* เพิ่มเงาเมื่อ hover */
+.total-slots {
+  background-color: #28a745;
+  border: 2px solid #28a745;
+  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
 }
 
+.available-slots {
+  background-color: #dc3545;
+  border: 2px solid #dc3545;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.5);
+}
 
-
-
-/* โหมด Container */
+/* Mode Container */
 .mode-container {
-  display: flex; /* ใช้ Flexbox */
-  align-items: center; /* จัดแนวกลางในแนวนอน */
-  justify-content: center; /* จัดกลางในแนวนอน */
-  gap: 15px; /* ช่องว่างระหว่างองค์ประกอบ */
-  margin-bottom: 20px; /* ช่องว่างด้านล่าง */
-  background-color: #ffffff; /* สีพื้นหลัง */
-  padding: 15px; /* Padding */
-  border-radius: 10px; /* มุมโค้ง */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* เงา */
-  transition: transform 0.3s; /* เปลี่ยนแปลงขนาดเมื่อ hover */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px auto;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
 }
 
-
-
-
-/* Button Container */
+/* Button Styles */
 .button-container {
-  display: flex; /* ใช้ Flexbox */
-  gap: 20px; /* ช่องว่างระหว่างปุ่ม */
-  justify-content: center; /* จัดกลางในแนวนอน */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin: 15px 0;
 }
 
-/* ปุ่ม */
 .button {
-  padding: 12px 24px; /* ขนาดของปุ่ม */
-  font-size: 18px; /* ขนาดตัวอักษร */
-  color: white; /* สีตัวอักษร */
-  background: linear-gradient(45deg, #007BFF, #0056b3); /* สีกระจาย */
-  border: none; /* ไม่มีขอบ */
-  border-radius: 25px; /* มุมโค้ง */
-  cursor: pointer; /* เปลี่ยนเคอร์เซอร์เมื่อวางเมาส์ */
-  transition: background 0.3s, transform 0.3s; /* เปลี่ยนสีพื้นหลังและขยายเมื่อ hover */
-  
+  padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+  font-size: clamp(0.875rem, 2vw, 18px);
+  color: white;
+  background: linear-gradient(45deg, #007BFF, #0056b3);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.button:hover {
-  background: linear-gradient(45deg, #0056b3, #007BFF); /* สีพื้นหลังเมื่อ hover */
-  transform: translateY(-3px); /* ขยับปุ่มขึ้นเล็กน้อยเมื่อ hover */
-}
-
-/* สไตล์สำหรับสวิตช์ */
+/* Switch Styles */
 .switch {
   position: relative;
   display: inline-block;
   width: 60px;
   height: 34px;
+  min-width: 60px;
 }
 
 .switch input {
@@ -187,9 +177,9 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc; /* สีพื้นหลังของสวิตช์ */
-  transition: .4s; /* ความเร็วในการเปลี่ยนสี */
-  border-radius: 34px; /* มุมโค้ง */
+  background-color: #ccc;
+  transition: .4s;
+  border-radius: 34px;
 }
 
 .slider:before {
@@ -199,37 +189,35 @@ h1 {
   width: 26px;
   left: 4px;
   bottom: 4px;
-  background-color: white; /* สีของลูกสวิตช์ */
-  transition: .4s; /* ความเร็วในการเปลี่ยนตำแหน่ง */
-  border-radius: 50%; /* ทำให้ลูกกลม */
+  background-color: white;
+  transition: .4s;
+  border-radius: 50%;
 }
 
 input:checked + .slider {
-  background-color: #007BFF; /* สีพื้นหลังของสวิตช์เมื่อเปิด */
+  background-color: #007BFF;
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px); /* ขยับลูกสวิตช์ไปทางขวา */
+  transform: translateX(26px);
 }
-
-/* ข้อความสถานะ */
-.mode-status {
-  font-size: 16px; /* ขนาดตัวอักษร */
-  color: #333; /* สีตัวอักษร */
-  font-weight: bold; /* ตัวหนา */
-}
-
 
 /* History Table */
 .history-table {
   width: 100%;
-  border-collapse: collapse;
+  overflow-x: auto;
   margin-top: 20px;
+}
+
+.history-table table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
 }
 
 .history-table th,
 .history-table td {
-  padding: 12px;
+  padding: clamp(8px, 2vw, 12px);
   text-align: left;
   border: 1px solid #ddd;
 }
@@ -243,56 +231,69 @@ input:checked + .slider:before {
   background-color: #f8f9fa;
 }
 
-.history-row:hover {
-  background-color: #e9ecef;
-}
-/* The switch - the box around the slider */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-/* The slider */
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
+/* Hover Effects for Non-Touch Devices */
+@media (hover: hover) {
+  .parking-slot:hover {
+    transform: scale(1.05);
+  }
+  
+  .button:hover {
+    background: linear-gradient(45deg, #0056b3, #007BFF);
+    transform: translateY(-3px);
+  }
+  
+  .total-slots:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.7);
+  }
+  
+  .available-slots:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.7);
+  }
+  
+  .history-row:hover {
+    background-color: #e9ecef;
+  }
 }
 
-/* Slider before it is toggled */
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
+/* Small Screen Adjustments */
+@media (max-width: 480px) {
+  .parking-status {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+  
+  .total-slots,
+  .available-slots {
+    width: 100%;
+  }
+  
+  .mode-container {
+    padding: 10px;
+    margin: 10px;
+  }
+  
+  .button {
+    width: 100%;
+  }
 }
 
-/* Checked slider */
-input:checked + .slider {
-    background-color: #007bff; /* สีน้ำเงินเมื่อเลือก */
-}
-
-/* Move the slider when checked */
-input:checked + .slider:before {
-    transform: translateX(26px);
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+  }
+  
+  .button-container,
+  .mode-container {
+    display: none;
+  }
+  
+  #parking-info,
+  .parking-status,
+  .history-table {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
 }
