@@ -7,6 +7,7 @@ body {
   padding: 0;
   min-height: 100vh;
   box-sizing: border-box;
+  font-size: clamp(14px, 2vw, 16px);
 }
 
 h1 {
@@ -31,30 +32,21 @@ h1 {
 }
 
 /* Responsive Grid Adjustments */
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   #parking-info {
-    grid-template-columns: repeat(2, 1fr);
-    width: 95%;
-    padding: 10px;
-  }
-  
-  .parking-slot {
-    padding: 15px;
-    font-size: 1rem;
+    grid-template-columns: repeat(5, 2fr);
   }
 }
 
-@media (min-width: 601px) and (max-width: 1024px) {
+@media (min-width: 481px) and (max-width: 1024px) {
   #parking-info {
-    grid-template-columns: repeat(3, 1fr);
-    width: 90%;
+    grid-template-columns: repeat(5, 2fr);
   }
 }
 
 @media (min-width: 1025px) {
   #parking-info {
-    grid-template-columns: repeat(5, 1fr);
-    width: 70%;
+    grid-template-columns: repeat(5, 2fr);
   }
 }
 
@@ -68,7 +60,6 @@ h1 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   border: 1px solid #b8b8b8;
-  min-height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -88,11 +79,9 @@ h1 {
 .parking-status {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 10px;
   justify-content: center;
   margin: 20px auto;
-  max-width: 600px;
-  padding: 0 15px;
 }
 
 /* Status Boxes */
@@ -104,48 +93,38 @@ h1 {
   font-size: clamp(1rem, 3vw, 22px);
   text-align: center;
   color: #fff;
-  min-width: 140px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 1px;
 }
 
 .total-slots {
   background-color: #28a745;
-  border: 2px solid #28a745;
-  box-shadow: 0 4px 15px rgba(40, 167, 69, 0.5);
 }
 
 .available-slots {
   background-color: #dc3545;
-  border: 2px solid #dc3545;
-  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.5);
 }
 
 /* Mode Container */
 .mode-container {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 15px;
   margin: 20px auto;
-  background-color: #ffffff;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  max-width: 600px;
+  background-color: #ffffff;
 }
 
 /* Button Styles */
 .button-container {
   display: flex;
-  flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
-  margin: 15px 0;
 }
 
 .button {
-  padding: clamp(8px, 2vw, 12px) clamp(16px, 4vw, 24px);
+  padding: clamp(12px, 4vw, 16px) clamp(24px, 6vw, 32px);
   font-size: clamp(0.875rem, 2vw, 18px);
   color: white;
   background: linear-gradient(45deg, #007BFF, #0056b3);
@@ -155,13 +134,17 @@ h1 {
   transition: all 0.3s ease;
 }
 
+.button:hover {
+  background: linear-gradient(45deg, #0056b3, #007BFF);
+  transform: translateY(-3px);
+}
+
 /* Switch Styles */
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
-  min-width: 60px;
+  width: 70px;
+  height: 40px;
 }
 
 .switch input {
@@ -178,15 +161,15 @@ h1 {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  transition: .4s;
   border-radius: 34px;
+  transition: .4s;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: 30px;
+  width: 30px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -205,13 +188,11 @@ input:checked + .slider:before {
 /* History Table */
 .history-table {
   width: 100%;
-  overflow-x: auto;
   margin-top: 20px;
 }
 
 .history-table table {
   width: 100%;
-  min-width: 600px;
   border-collapse: collapse;
 }
 
@@ -225,75 +206,4 @@ input:checked + .slider:before {
 .history-table th {
   background-color: #007bff;
   color: white;
-}
-
-.history-row:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-/* Hover Effects for Non-Touch Devices */
-@media (hover: hover) {
-  .parking-slot:hover {
-    transform: scale(1.05);
-  }
-  
-  .button:hover {
-    background: linear-gradient(45deg, #0056b3, #007BFF);
-    transform: translateY(-3px);
-  }
-  
-  .total-slots:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.7);
-  }
-  
-  .available-slots:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(220, 53, 69, 0.7);
-  }
-  
-  .history-row:hover {
-    background-color: #e9ecef;
-  }
-}
-
-/* Small Screen Adjustments */
-@media (max-width: 480px) {
-  .parking-status {
-    flex-direction: column;
-    padding: 0 10px;
-  }
-  
-  .total-slots,
-  .available-slots {
-    width: 100%;
-  }
-  
-  .mode-container {
-    padding: 10px;
-    margin: 10px;
-  }
-  
-  .button {
-    width: 100%;
-  }
-}
-
-/* Print Styles */
-@media print {
-  body {
-    background: white;
-  }
-  
-  .button-container,
-  .mode-container {
-    display: none;
-  }
-  
-  #parking-info,
-  .parking-status,
-  .history-table {
-    box-shadow: none;
-    border: 1px solid #000;
-  }
 }
