@@ -34,19 +34,22 @@ h1 {
 /* Responsive Grid Adjustments */
 @media (max-width: 480px) {
   #parking-info {
-    grid-template-columns: repeat(5, 2fr);
+    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
+    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
   }
 }
 
 @media (min-width: 481px) and (max-width: 1024px) {
   #parking-info {
-    grid-template-columns: repeat(5, 2fr);
+    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
+    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
   }
 }
 
 @media (min-width: 1025px) {
   #parking-info {
-    grid-template-columns: repeat(5, 2fr);
+    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
+    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
   }
 }
 
@@ -93,7 +96,7 @@ h1 {
   font-size: clamp(1rem, 3vw, 22px);
   text-align: center;
   color: #fff;
-  min-width: 1px;
+  min-width: 140px;
 }
 
 .total-slots {
