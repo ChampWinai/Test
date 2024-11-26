@@ -2,7 +2,7 @@
 <html lang="th">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes" />
     <title>Smart Parking</title>
     <link rel="stylesheet" href="styles.css" />
     <script type="module" src="script.js"></script>
@@ -43,17 +43,32 @@
           document.getElementById("open-gate-btn").style.display = "none"; // ซ่อนปุ่มเปิด
           document.getElementById("close-gate-btn").style.display = "none"; // ซ่อนปุ่มปิด
 
-          // เชื่อมต่อกับฟังก์ชัน JavaScript
-          document.getElementById("open-gate-btn").addEventListener("click", openGate);
-          document.getElementById("close-gate-btn").addEventListener("click", closeGate);
+          // เชื่อมต่อกับฟังก์ชัน Javaฟ
+          document.getElementById("open-gate-btn").addEventListener("click", (event) => {
+            openGate();
+            toggleActiveButton(event.target);
+          });
+          document.getElementById("close-gate-btn").addEventListener("click", (event) => {
+            closeGate();
+            toggleActiveButton(event.target);
+          });
         });
 
         document.getElementById("mode-switch").addEventListener("change", (event) => {
           switchMode(event.target.checked);
         });
-      </script>
+        
+        function toggleActiveButton(clickedButton) {
+          // Remove active class from both buttons
+          document.getElementById("open-gate-btn").classList.remove("active");
+          document.getElementById("close-gate-btn").classList.remove("active");
 
+          // Add active class to the clicked button
+          clickedButton.classList.add("active");
+        }
+      </script>
       <section id="history-info"></section>
+      
     </main>
   </body>
 </html>
