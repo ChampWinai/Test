@@ -64,36 +64,45 @@ function fetchParkingInfo() {
     });
 }
 
-// Display status history for a specific slot
+// ฟังก์ชันแสดงประวัติของช่องจอด
 function displayStatusHistory(slot) {
-    const historyInfoDiv = document.getElementById('history-info');
-    historyInfoDiv.innerHTML = ''; // Clear previous history
+    const historyInfoDiv = document.getElementById("history-info");
+    historyInfoDiv.innerHTML = "<p>กำลังโหลดข้อมูล...</p>"; // ข้อความกำลังโหลด
 
     const historyRef = ref(database, `parking_spaces/${slot}/history`);
     onValue(historyRef, (snapshot) => {
         const history = snapshot.val();
         if (history) {
-            const table = document.createElement('table');
-            table.classList.add('history-table');
+            const table = document.createElement("table");
+            table.classList.add("history-table");
 
-            // Create table header
-            const header = document.createElement('tr');
+            // สร้างส่วนหัวของตาราง
+            const header = document.createElement("tr");
             header.innerHTML = `<th>เวลา</th><th>สถานะ</th>`;
             table.appendChild(header);
 
-            // Populate table with history data
-            Object.keys(history).forEach(key => {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td>${history[key].timestamp}</td><td>${history[key].action}</td>`;
+            // แปลง history เป็นอาเรย์และเรียงลำดับตามเวลา (ล่าสุดอยู่บนสุด)
+            const sortedHistory = Object.entries(history).sort((a, b) => {
+                const timeA = new Date(a[1].timestamp).getTime();
+                const timeB = new Date(b[1].timestamp).getTime();
+                return timeB - timeA; // เรียงลำดับจากเวลาล่าสุดไปเก่าสุด
+            });
+
+            // เพิ่มข้อมูลในตาราง
+            sortedHistory.forEach(([key, value]) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `<td>${value.timestamp}</td><td>${value.action}</td>`;
                 table.appendChild(row);
             });
 
+            historyInfoDiv.innerHTML = ""; // ล้างข้อความกำลังโหลด
             historyInfoDiv.appendChild(table);
         } else {
-            historyInfoDiv.innerHTML = `<p>No history available for ${slot}.</p>`;
+            historyInfoDiv.innerHTML = `<p>ไม่มีข้อมูลประวัติสำหรับช่อง ${slot}.</p>`;
         }
     });
 }
+
 
 // ฟังก์ชันเปิดไม้กั้น
 export function openGate() {
