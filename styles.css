@@ -1,21 +1,29 @@
 /* General Body Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
-  background-color: #f0f2f5;
   margin: 0;
   padding: 0;
   min-height: 100vh;
   box-sizing: border-box;
   font-size: clamp(14px, 2vw, 16px);
+  color: #333;
+  overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวา */
 }
 
-h1 {
-  font-size: clamp(1.5rem, 4vw, 2.5em);
-  margin: 20px auto;
-  color: #333;
-  font-weight: bold;
-  letter-spacing: 1px;
+/* Header Styles */
+header {
+  background: rgba(255, 255, 255, 0.9);
+  color: rgb(0, 0, 0);
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1.2px;
 }
 
 /* Grid Layout for Parking Slots */
@@ -24,33 +32,14 @@ h1 {
   gap: 10px;
   justify-content: center;
   padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
   width: 90%;
   margin: 20px auto;
-}
-
-/* Responsive Grid Adjustments */
-@media (max-width: 480px) {
-  #parking-info {
-    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
-    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
-  }
-}
-
-@media (min-width: 481px) and (max-width: 1024px) {
-  #parking-info {
-    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
-    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
-  }
-}
-
-@media (min-width: 1025px) {
-  #parking-info {
-    grid-template-columns: repeat(5, 1fr); /* สร้าง 5 คอลัมน์ */
-    grid-template-rows: repeat(2, auto); /* สร้าง 2 แถว */
-  }
+  grid-template-columns: repeat(5, 1fr); /* 5 คอลัมน์ */
+  grid-template-rows: repeat(2, auto); /* 2 แถว */
+  overflow-x: hidden; /* ป้องกันการเลื่อนซ้ายขวา */
 }
 
 /* Parking Slot Styles */
@@ -60,58 +49,76 @@ h1 {
   text-align: center;
   font-size: clamp(1rem, 2vw, 1.2em);
   font-weight: bold;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  border: 1px solid #b8b8b8;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .parking-slot.available {
-  background-color: #28a745;
-  color: #fff;
+  background: #28a745;
+  color: white;
 }
 
 .parking-slot.occupied {
-  background-color: #dc3545;
-  color: #fff;
+  background: #dc3545;
+  color: white;
+}
+
+.parking-slot:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 /* Parking Status Container */
 .parking-status {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 15px;
   justify-content: center;
   margin: 20px auto;
+  padding: 0 20px;
 }
 
 /* Status Boxes */
 .total-slots,
 .available-slots {
   flex: 1 1 200px;
-  padding: clamp(15px, 3vw, 20px);
+  padding: 20px;
   border-radius: 10px;
-  font-size: clamp(1rem, 3vw, 22px);
+  font-size: clamp(1rem, 2vw, 1.5rem);
   text-align: center;
-  color: #fff;
   min-width: 140px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .total-slots {
-  background-color: #28a745;
+  background: #28a745;
+  color: white;
 }
 
 .available-slots {
-  background-color: #dc3545;
+  background: #dc3545;
+  color: white;
 }
+
+.total-slots:hover,
+.available-slots:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
 
 /* Mode Container */
 .mode-container {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
   gap: 15px;
   margin: 20px auto;
   padding: 15px;
@@ -141,6 +148,11 @@ h1 {
   background: linear-gradient(45deg, #0056b3, #007BFF);
   transform: translateY(-3px);
 }
+.button.active {
+  background: linear-gradient(45deg, #ff6d6d, #ff0000);
+  transform: scale(1.2);
+  box-shadow: 0 8px 15px rgba(243, 250, 243, 0.908);
+}
 
 /* Switch Styles */
 .switch {
@@ -163,7 +175,7 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: #ff0101;
   border-radius: 34px;
   transition: .4s;
 }
@@ -174,7 +186,7 @@ h1 {
   height: 30px;
   width: 30px;
   left: 4px;
-  bottom: 4px;
+  bottom: 5px;
   background-color: white;
   transition: .4s;
   border-radius: 50%;
@@ -191,6 +203,7 @@ input:checked + .slider:before {
 /* History Table */
 .history-table {
   width: 100%;
+  font-weight: bold;
   margin-top: 20px;
 }
 
